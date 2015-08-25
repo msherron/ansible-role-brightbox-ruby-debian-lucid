@@ -1,0 +1,61 @@
+ruby_version: 1.8
+brightbox_ruby_version: ruby{{ ruby_version | regex_replace('^(\d\.\d)\..*$', '\\1') }}
+brightbox_ruby_default_gems:
+  - ruby-hmac
+  - rubyforge
+  - rubygems-update
+  # - aq
+  - aws-sdk
+  - builder
+  - bundler
+  - compass
+  - daemon_controller
+  - echoe
+  - eventmachine
+  - eventmachine-tail
+  - excon
+  - facter
+  - fastthread
+  - ffi
+  - formatador
+  - gzip
+  - hiera
+  - httpclient
+  - json
+  - json_pure
+  - minitest
+  - mkrf
+  - multi_json
+  - multi_xml
+  - mysql
+  - mysql2
+  - net-netrc
+  - net-scp
+  - net-ssh
+  - open4
+  - passenger
+  - Platform
+  - popen4
+  - puppet
+  - rack
+  - rake
+  - rb-inotify
+  - rgen
+  - right_aws
+  - right_http_connection
+  - sass
+  - simplecov
+  - statsd-ruby
+  - sys-filesystem
+  - sys-proctable
+  - thor
+  - uuidtools
+
+brightbox_ruby_versioned_gems:
+  - { name: 'nokogiri', version: '1.5.9' }
+  - { name: 'mime-types', version: '1.16' }
+  - { name: 'fog', version: '1.4.0' }
+  - { name: 'highline', version: '1.6.9' }
+  - { name: 'httparty', version: '0.8.3' }
+  - { name: 'xmlparser', version: '0.7.2.1' }
+  - { name: 'yard', version: '0.8.2.1' }

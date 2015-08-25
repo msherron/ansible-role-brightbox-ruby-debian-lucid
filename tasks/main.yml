@@ -1,0 +1,44 @@
+---
+- name: ppa dependencies
+  sudo: yes
+  apt: name={{item}} update_cache=yes cache_valid_time=300
+  with_items:
+    - python-software-properties
+
+- name: brightbox ruby repo
+  sudo: yes
+  apt_repository: repo=ppa:brightbox/ruby-ng update_cache=yes
+
+- name: install ruby packages
+  sudo: yes
+  apt: name={{item}} state=latest
+  with_items:
+    - ruby-switch
+    - "{{brightbox_ruby_version}}"
+    - "{{brightbox_ruby_version}}-dev"
+
+- name: switch to {{brightbox_ruby_version}}
+  sudo: yes
+  shell: ruby-switch --set {{brightbox_ruby_version}}
+
+- name: Install rubygems (so gem command is available).
+  apt: pkg=rubygems{{ ruby_version }} state=present 
+
+- name: Install ruby dependencies with apt.
+  sudo: yes
+  apt: pkg={{ item }} state=present
+  with_items:
+    - libmysqlclient16-dev
+    - libxml2-dev
+    - libxslt-dev
+    - libexpat-dev
+
+- name: install versioned gems
+  sudo: yes
+  command: gem install {{ item.name }} -v {{ item.version }} --no-rdoc --no-ri
+  with_items: brightbox_ruby_versioned_gems
+
+- name: install default gems
+  sudo: yes
+  command: gem install {{item}} --no-rdoc --no-ri
+  with_items: brightbox_ruby_default_gems
